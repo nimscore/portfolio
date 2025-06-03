@@ -1,7 +1,6 @@
 export type Item = { id: number; label: string }
 
-const HOST = process.env.SERVER_HOST || 'localhost'
-const PORT = process.env.SERVER_PORT || 4000
+const SERVER = process.env.NEXT_PUBLIC_SERVER_URL
 
 export async function fetchItems({
 	offset,
@@ -17,12 +16,9 @@ export async function fetchItems({
 		limit: limit.toString(),
 		search,
 	})
-	const res = await fetch(
-		`http://${HOST}:${PORT}/api/items?${query.toString()}`,
-		{
-			credentials: 'include',
-		}
-	)
+	const res = await fetch(`${SERVER}/api/items?${query.toString()}`, {
+		credentials: 'include',
+	})
 	if (!res.ok) throw new Error('Failed to fetch items')
 	return res.json()
 }
@@ -31,7 +27,7 @@ export async function fetchState(): Promise<{
 	order: number[]
 	selected: number[]
 }> {
-	const res = await fetch(`http://${HOST}:${PORT}/api/state`, {
+	const res = await fetch(`${SERVER}/api/state`, {
 		credentials: 'include',
 	})
 	if (!res.ok) throw new Error('Failed to fetch state')
@@ -46,7 +42,7 @@ export async function saveState(
 	if (Array.isArray(order)) {
 		body.order = order
 	}
-	const res = await fetch(`http://${HOST}:${PORT}/api/state`, {
+	const res = await fetch(`${SERVER}/api/state`, {
 		method: 'POST',
 		credentials: 'include',
 		headers: { 'Content-Type': 'application/json' },
@@ -56,7 +52,7 @@ export async function saveState(
 }
 
 export async function reorderFiltered(filteredOrder: number[]) {
-	const res = await fetch(`http://${HOST}:${PORT}/api/state/reorderFiltered`, {
+	const res = await fetch(`${SERVER}/api/state/reorderFiltered`, {
 		method: 'POST',
 		credentials: 'include',
 		headers: { 'Content-Type': 'application/json' },
