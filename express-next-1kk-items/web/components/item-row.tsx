@@ -3,7 +3,7 @@
 import { Checkbox } from '@/components/ui/checkbox'
 import { CSS, type Transform } from '@dnd-kit/utilities'
 import { LucideGripHorizontal } from 'lucide-react'
-import React, { HTMLAttributes } from 'react'
+import React from 'react'
 
 interface ItemRowProps {
 	id: number
@@ -11,8 +11,8 @@ interface ItemRowProps {
 	checked: boolean
 	onChange: (id: number, checked: boolean) => void
 
-	handleAttributes?: HTMLAttributes<HTMLElement>
-	handleListeners?: Record<string, any>
+	handleAttributes?: React.HTMLAttributes<HTMLElement>
+	handleListeners?: React.HTMLAttributes<HTMLElement>
 	refCallback?: (node: HTMLElement | null) => void
 	transform?: Transform | null
 	transition?: string

@@ -39,7 +39,7 @@ export async function saveState(
 	order: number[] | undefined,
 	selected: number[]
 ) {
-	const body: Record<string, any> = { selected }
+	const body: { selected: number[]; order?: number[] } = { selected }
 	if (Array.isArray(order)) {
 		body.order = order
 	}
